@@ -29,6 +29,17 @@ pipeline {
         }
     }
 }
+stage('Check Credentials') {
+    steps {
+        withCredentials([usernamePassword(
+            credentialsId: 'dockerhub-creds',
+            usernameVariable: 'DOCKER_USER',
+            passwordVariable: 'DOCKER_PASS'
+        )]) {
+            bat 'echo USER=%DOCKER_USER%'
+        }
+    }
+}
 
         stage('Push to Docker Hub'){
             steps{
