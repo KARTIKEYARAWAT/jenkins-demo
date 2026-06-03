@@ -15,9 +15,20 @@ pipeline {
         //         bat 'docker run -d -p 8090:80 --name demo-container jenkins-demo:%BUILD_NUMBER%'
         //     }
         // }
-        stage('Docker Login') { 
-            steps { withCredentials([usernamePassword( credentialsId: 'dockerhub-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS' )]) 
-            { bat 'echo %DOCKER_PASS% | docker login -u %DOCKER_USER% --password-stdin' } } }
+     stage('Docker Login') {
+    steps {
+        withCredentials([usernamePassword(
+            credentialsId: 'dockerhub-creds',
+            usernameVariable: 'DOCKER_USER',
+            passwordVariable: 'DOCKER_PASS'
+        )]) {
+            bat '''
+            docker logout
+            echo %DOCKER_PASS% | docker login -u %DOCKER_USER% --password-stdin
+            '''
+        }
+    }
+}
 
         stage('Push to Docker Hub'){
             steps{
