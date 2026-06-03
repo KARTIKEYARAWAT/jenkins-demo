@@ -8,6 +8,17 @@ pipeline {
                 bat 'docker build -t kartikeya12rawat/jenkins-demo:%BUILD_NUMBER% .'
             }
         }
+        stage('Check Credential User') {
+    steps {
+        withCredentials([usernamePassword(
+            credentialsId: 'dockerhub-token',
+            usernameVariable: 'DOCKER_USER',
+            passwordVariable: 'DOCKER_PASS'
+        )]) {
+            bat 'echo USER=%DOCKER_USER%'
+        }
+    }
+}
 
         stage('Docker Login') {
     steps {
