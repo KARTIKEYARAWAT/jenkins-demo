@@ -5,17 +5,21 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                bat 'docker build -t jenkins-demo:%BUILD_NUMBER% .'
+                bat 'docker build -t kartikeya12rawatjenkins-demo:%BUILD_NUMBER% .'
             }
         }
 
-        stage('Run Container') {
-            steps {
-                bat 'docker rm -f demo-container || exit 0'
-                bat 'docker run -d -p 8090:80 --name demo-container jenkins-demo:%BUILD_NUMBER%'
+        // stage('Run Container') {
+        //     steps {
+        //         bat 'docker rm -f demo-container || exit 0'
+        //         bat 'docker run -d -p 8090:80 --name demo-container jenkins-demo:%BUILD_NUMBER%'
+        //     }
+        // }
+        stage('Push to Docker Hub'){
+            steps{
+                bat 'docker push kartikeya12rawatjenkins-demo:%BUILD_NUMBER%'
             }
         }
-
         
     }
 }
