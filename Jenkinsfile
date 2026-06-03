@@ -15,6 +15,13 @@ pipeline {
         //         bat 'docker run -d -p 8090:80 --name demo-container jenkins-demo:%BUILD_NUMBER%'
         //     }
         // }
+        stage('Docker login'){
+            steps{
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                    bat 'docker login -u %DOCKER_USER% -p %DOCKER_PASS%'
+                }
+            }
+        }
         stage('Push to Docker Hub'){
             steps{
                 bat 'docker push kartikeya12rawat/jenkins-demo:%BUILD_NUMBER%'
