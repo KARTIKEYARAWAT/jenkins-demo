@@ -17,7 +17,7 @@ pipeline {
         // }
         stage('Push to Docker Hub'){
             steps{
-                bat 'docker push kartikeya12rawatjenkins-demo:%BUILD_NUMBER%'
+                bat 'docker push kartikeya12rawat/jenkins-demo:%BUILD_NUMBER%'
             }
         }
         
