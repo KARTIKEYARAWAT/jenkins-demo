@@ -5,7 +5,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                bat 'docker build -t kartikeya12rawatjenkins-demo:%BUILD_NUMBER% .'
+                bat 'docker build -t kartikeya12rawat/jenkins-demo:%BUILD_NUMBER% .'
             }
         }
 
